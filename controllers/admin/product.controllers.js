@@ -143,9 +143,9 @@ module.exports.createPost = async (req, res) => {
         const countProducts = await Products.countDocuments();
         req.body.position = countProducts + 1;
       }
-      if (req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}`;
-      }
+      // if (req.file) {
+      //   req.body.thumbnail = `/uploads/${req.file.filename}`;
+      // }
       const product = new Products(req.body);
       await product.save();
     }
