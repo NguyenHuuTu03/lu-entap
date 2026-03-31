@@ -1,0 +1,89 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main
+  .container-fluid.mt-4
+    h2.mb-4 Thêm sản phẩm
+
+    form(method="POST", action="/admin/products/create" id="form-create-product" enctype="multipart/form-data")
+      .card.shadow-sm
+        .card-body
+          +alertError(5000)
+          .mb-3
+            label.form-label(for="title") Tên sản phẩm
+            input.form-control(
+              type="text",
+              name="title",
+              id="title",
+              placeholder="Nhập tên sản phẩm",
+              required
+            )
+
+          .mb-3
+            label.form-label(for="price") Giá
+            input.form-control(
+              type="number",
+              name="price",
+              id="price",
+              placeholder="Nhập giá",
+              required
+            )
+
+          .mb-3
+            label.form-label(for="discountPercentage") Giảm giá (%)
+            input.form-control(
+              type="number",
+              name="discountPercentage",
+              id="discountPercentage",
+              placeholder="Nhập % giảm giá"
+            )
+
+          .mb-3
+            label.form-label(for="stock") Số lượng
+            input.form-control(
+              type="number",
+              name="stock",
+              id="stock",
+              placeholder="Nhập số lượng"
+            )
+          .mb-3
+            label.form-label(for="position") Vị trí
+            input.form-control(
+              type="number",
+              name="position",
+              id="position",
+              placeholder="Nhập vị trí"
+            )
+
+          .mb-3
+            label.form-label(for="thumbnail") Ảnh
+            input(
+              type="file"
+              class="form-control-file d-block"
+              style="margin-bottom:15px"
+              id="thumbnail"  
+              name="thumbnail"
+              accept="image/*" 
+              upload-image-input
+            )
+          div(class="preview-image d-none")
+            img(src="" upload-image-preview class="d-block" style="width: 100px; height: 100px")
+            button.close-image(type="button") x
+
+          .mb-3
+            label.form-label(for="description") Mô tả
+            textarea.form-control(
+              name="description",
+              id="description",
+              rows="4",
+              placeholder="Nhập mô tả"
+            )
+
+          .mb-3
+            label.form-label Trạng thái
+            select.form-select(name="status")
+              option(value="active") Hoạt động
+              option(value="inactive") Dừng hoạt động
+
+        .card-footer.text-end
+          button.btn.btn-primary(type="submit") Tạo mới
+          a.btn.btn-secondary.ms-2(href="/admin/products") Quay lại

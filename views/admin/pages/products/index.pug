@@ -1,0 +1,133 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main
+  .container-fluid.mt-4
+    // ===== HEADER =====
+    .d-flex.justify-content-between.align-items-center.mb-3
+      +alertSuccess(5000)
+      +alertError(5000)
+      h3.mb-0 Quản lý sản phẩm
+      a.btn.btn-primary(href=`${prefixAdmin}/products/create`) + Thêm sản phẩm
+
+    // ===== CARD FILTER STATUS + SEARCH =====
+    .card.shadow-sm.mb-3
+      h5.card-header Bộ lọc trạng thái và tìm kiếm
+      .card-body.d-flex.justify-content-between.align-items-center.flex-wrap.gap-2
+
+        // BUTTON FILTER
+        .btn-group
+          each item in objectStatus
+            button.btn.btn-outline-primary(data-status=item.status class=item.class) #{item.name}
+            
+
+        // SEARCH
+        .d-flex.justify-content-between.align-items-center.mb-3
+          form.form-search.d-flex.gap-2
+            input.form-control(
+              type="text"
+              placeholder="🔍 Nhập tên sản phẩm..."
+              name="keyword"
+              style="width: 300px"
+              value=keyword
+            )
+            button.btn.btn-primary(type="submit")
+              i.fa.fa-search.me-1
+              | Tìm kiếm
+    // ===== CARD MULTI ACTION =====
+    .card.shadow-sm.mb-3
+      h5.card-header Bộ lọc hành động
+      .card-body.d-flex.align-items-center.gap-2.flex-wrap
+        form.form-change-multi.d-flex.align-items-center.gap-2(method="POST" action=`${prefixAdmin}/products/change-multi?_method=PATCH`)
+          select.form-select(style="width:200px" name="option" )
+            option(value="") -- Chọn hành động --
+            option(value="delete-all") Xóa
+            option(value="active") Hoạt động
+            option(value="inactive") Dừng hoạt động
+            option(value="change-position") Thay đổi vị trí
+          input.form-control(
+            type="text"
+            name="ids"
+            id="form-input"
+            placeholder="Nhập vị trí..."
+            style="width: 150px"
+            class="d-none"
+          )
+
+          button.btn.btn-primary(type="submit")
+            i.fa.fa-check.me-1
+            | Áp dụng
+    // ===== CARD SORT =====
+    .card.shadow-sm.mb-3
+      h5.card-header Bộ sắp xếp
+      .card-body.d-flex.align-items-center.gap-2.flex-wrap
+        form.form-sort.d-flex.align-items-center.gap-2
+          select.form-select(style="width:200px"  sort)
+            option(value="") -- Sắp xếp --
+            option(value="price-asc") Giá tăng dần
+            option(value="price-desc") Giá giảm dần
+            option(value="position-asc") Vị trí tăng dần
+            option(value="position-desc") Vị trí giảm dần
+
+          button.btn.btn-secondary(button-reset) Reset
+
+    // ===== TABLE =====
+    .card.shadow-sm
+      h3.card-header Danh sách sản phẩm
+      .card-body
+        table.table.table-hover.align-middle
+          thead.table-dark
+            tr
+              th 
+                input(type="checkbox", name="check-all")
+              th STT
+              th Ảnh
+              th Tên sản phẩm
+              th Giá
+              th Vị trí
+              th Trạng thái
+              th Hành động
+
+          tbody
+            each item, index in records
+              tr
+                td 
+                  input(type="checkbox", name="checkbox-item", data-id=item.id)
+                td #{index + 1}
+                td
+                  img(src=item.thumbnail, width="60")
+                td #{item.title}
+                td
+                  span.text-danger.fw-bold #{item.price}$
+                td
+                  input(type="number", name="position" value= item.position style="width: 60px")
+                if item.status == "active"
+                  td
+                    button.badge.bg-success(button-status status="active" button-id=item.id) Hoạt động
+                else 
+                  td
+                    button.badge.bg-danger(button-status status="inactive" button-id=item.id) Dừng hoạt động
+                td
+                  a.btn.btn-sm.btn-secondary.me-1(href=`${prefixAdmin}/products/detail/${item.id}`) Chi tiết
+                  a.btn.btn-sm.btn-warning.me-1(href=`${prefixAdmin}/products/edit/${item.id}`) Sửa
+                  a.btn.btn-sm.btn-danger(href="javascript:;" data-delete= item.id) Xóa
+
+    // ===== PAGINATION =====
+    .card.shadow-sm.mt-3
+      .card-body.d-flex.justify-content-center
+        nav(aria-label="Pagination")
+          ul.pagination.mb-0
+            if(pagination.currentPage > 1)
+              li.page-item
+                button.page-link(button-page data-page=pagination.currentPage - 1) Trang trước
+
+            - for(let i = 1; i <= pagination.countPage; i++)
+              li.page-item(class=pagination.currentPage == i ? "active" : "")
+                button.page-link(button-page data-page=i) #{i}
+
+            if(pagination.currentPage < pagination.countPage)
+              li.page-item
+                button.page-link(button-page data-page=pagination.currentPage + 1) Trang kế tiếp
+  form(action="", method="post", id="form-change-status", path= `${prefixAdmin}/products/change-status`) 
+  form(action="", method="post", id="form-delete", path= `${prefixAdmin}/products/delete`) 
+  
+  script(src="/admin/js/products.js")

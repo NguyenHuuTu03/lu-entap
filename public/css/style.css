@@ -1,0 +1,195 @@
+/* RESET nhẹ */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+/* ================= HEADER ================= */
+header {
+  background: linear-gradient(90deg, #1f2937, #111827);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Logo */
+header h4 {
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+header h4:hover {
+  color: #38bdf8;
+}
+
+/* Menu */
+header .nav {
+  gap: 25px;
+}
+
+header .nav-link {
+  color: #fff;
+  font-weight: 500;
+  position: relative;
+  transition: 0.3s;
+}
+
+/* Hover */
+header .nav-link:hover {
+  color: #38bdf8;
+}
+
+/* Hiệu ứng gạch chân */
+header .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 2px;
+  background: #38bdf8;
+  transition: 0.3s;
+}
+
+header .nav-link:hover::after {
+  width: 100%;
+}
+
+/* Active */
+header .nav-link.active {
+  color: #38bdf8;
+}
+
+/* ================= FOOTER ================= */
+footer {
+  background: #111827;
+  color: #d1d5db;
+  font-size: 14px;
+}
+
+/* Tiêu đề */
+footer h5,
+footer h6 {
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Link */
+footer a {
+  color: #d1d5db;
+  transition: 0.3s;
+}
+
+footer a:hover {
+  color: #38bdf8;
+  padding-left: 5px;
+}
+
+/* Khoảng cách list */
+footer ul li {
+  margin-bottom: 6px;
+}
+
+/* Đường kẻ */
+footer hr {
+  border-color: rgba(255, 255, 255, 0.1);
+  margin: 15px 0;
+}
+
+/* Copyright */
+footer .text-center {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  header .d-flex {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  header .nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  footer .row > div {
+    text-align: center;
+  }
+}
+
+/* vị trí hiển thị (góc phải trên) */
+.message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+/* alert chung */
+.alert {
+  min-width: 260px;
+  padding: 12px 40px 12px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* animation vào */
+  animation: slideIn 0.4s ease;
+}
+
+/* success */
+.alert-success {
+  background: #e6f9f0;
+  color: #0f5132;
+  border: 1px solid #badbcc;
+}
+
+/* error */
+.alert-danger {
+  background: #fdecea;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+}
+
+/* nút đóng */
+[close-alert] {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* hover */
+[close-alert]:hover {
+  opacity: 0.6;
+}
+
+/* animation xuất hiện */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* animation biến mất (dùng với JS) */
+.alert.hide {
+  animation: fadeOut 0.4s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+}

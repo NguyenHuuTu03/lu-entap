@@ -1,0 +1,22 @@
+extends ../../layouts/default.pug
+
+block main
+  .container.mt-4
+    h2.mb-4 Danh sách sản phẩm
+
+    .row
+      each item in records
+        .col-md-3.mb-4
+          .card.h-100.shadow-sm
+            img.card-img-top(src=item.thumbnail)
+            .card-body
+              h6.card-title #{item.title}
+
+              // Giá
+              .d-flex.align-items-center.gap-2
+                span.new-price.text-danger.fw-bold #{item.new_price}$
+                span.old-price #{item.price}$
+
+              span.badge.bg-success.mb-2 #{item.discountPercentage}%
+
+              a.btn.btn-primary.mt-auto(href=`/products/detail/${item.slug}`) Xem chi tiết

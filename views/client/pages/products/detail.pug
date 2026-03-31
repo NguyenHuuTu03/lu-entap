@@ -1,0 +1,36 @@
+extends ../../layouts/default.pug
+
+block main
+  .container.mt-4
+    .row
+      // Ảnh sản phẩm
+      .col-md-5
+        img.img-fluid.rounded.shadow-sm(
+          src=product.thumbnail,
+          alt=product.title,
+          style="width:100%; object-fit:cover;"
+        )
+
+      // Thông tin sản phẩm
+      .col-md-7
+        h2.mb-3 #{product.title}
+
+        // Giá
+        .d-flex.align-items-center.gap-3.mb-3
+          span.text-danger.fw-bold.fs-4 #{product.price}$
+
+        // Giảm giá
+        span.badge.bg-success.mb-3 #{product.discountPercentage}%
+
+        // Mô tả
+        p.mt-3
+          #{product.description}
+
+        // Tồn kho
+        p
+          strong Tồn kho: #{product.stock}
+
+        // Nút
+        .mt-4
+          a.btn.btn-primary.me-2(href="#") Mua ngay
+          a.btn.btn-outline-secondary(href="/products") Quay lại

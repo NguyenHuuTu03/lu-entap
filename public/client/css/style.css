@@ -1,0 +1,80 @@
+/* ===== CARD CHUNG ===== */
+.card {
+  border: none;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+/* Hover nổi */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== ẢNH ===== */
+.card-img-top {
+  height: 220px;
+  object-fit: cover;
+  background: #f5f5f5;
+}
+
+/* ===== BODY ===== */
+.card-body {
+  background: #fff !important; /* FIX nền xanh lỗi */
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== TITLE ===== */
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 8px;
+  min-height: 40px;
+}
+
+/* ===== GIÁ ===== */
+.card .text-danger {
+  font-size: 17px;
+  color: #e53935 !important;
+}
+
+/* ===== BADGE ===== */
+.badge {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.old-price {
+  text-decoration: line-through;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* ===== BUTTON ===== */
+.card .btn {
+  margin-top: auto;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.card .btn:hover {
+  transform: scale(1.05);
+}
+
+/* ===== GRID ĐẸP ===== */
+.row {
+  row-gap: 20px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .card-img-top {
+    height: 160px;
+  }
+}
